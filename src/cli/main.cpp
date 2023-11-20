@@ -34,66 +34,89 @@ std::vector<Command> parse_command_list(std::string_view csv_file)
 		auto bank_id = row[2].get<std::size_t>();
 		std::size_t bank_group_id = 0;//row[3].get<std::size_t>();
 		std::size_t rank_id = 0;//row[4].get<std::size_t>();
+		//Attention: even if the cmdType is "END", the last 3 columns(bank_id, bg_id, rank_id) must exist.
+
+//		std::cout << "timestamp: "<< timestamp <<"\t" << "cmdType: " << cmdType << "\t" << "bank_id: " << bank_id << "\t" << "bg_id: " << bank_group_id << "\t" << "rank_id: " << rank_id <<std::endl;
 
 		if (cmdType == "ACT") {
 			commandList.push_back({ timestamp, CmdType::ACT, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PRE") {
 			commandList.push_back({ timestamp, CmdType::PRE, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PREA") {
 			commandList.push_back({ timestamp, CmdType::PREA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PRESB") {
 			commandList.push_back({ timestamp, CmdType::PRESB, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "REFA" || cmdType == "REF") {
 			commandList.push_back({ timestamp, CmdType::REFA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "REFB") {
 			commandList.push_back({ timestamp, CmdType::REFB, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "REFSB") {
 			commandList.push_back({ timestamp, CmdType::REFSB, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "RD") {
 			commandList.push_back({ timestamp, CmdType::RD, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "RDA") {
 			commandList.push_back({ timestamp, CmdType::RDA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "WR") {
 			commandList.push_back({ timestamp, CmdType::WR, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "WRA") {
 			commandList.push_back({ timestamp, CmdType::WRA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PDEA") {
 			commandList.push_back({ timestamp, CmdType::PDEA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PDEP") {
 			commandList.push_back({ timestamp, CmdType::PDEP, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PDXA") {
 			commandList.push_back({ timestamp, CmdType::PDXA, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "PDXP") {
 			commandList.push_back({ timestamp, CmdType::PDXP, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "SREN") {
 			commandList.push_back({ timestamp, CmdType::SREFEN, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "SREX") {
 			commandList.push_back({ timestamp, CmdType::SREFEX, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "DSMEN") {
 			commandList.push_back({ timestamp, CmdType::DSMEN, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "DSMEX") {
 			commandList.push_back({ timestamp, CmdType::DSMEX, { bank_id, bank_group_id, rank_id } });
+//			std::cout << cmdType << " insert." << std::endl;
 		}
 		else if (cmdType == "END") {
 			commandList.push_back({ timestamp, CmdType::END_OF_SIMULATION });
+//			std::cout << cmdType << " insert." << std::endl;
 		};
 	}
 
