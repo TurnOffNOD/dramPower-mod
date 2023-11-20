@@ -2,15 +2,17 @@
 
 # DRAM Power Model (DRAMPower 5.0)
 
-- [Releases](#releases)
-- [Installation](#installation)
-- [Project structure](#project-structure)
-- [Dependencies](#dependencies)
-- [Usage](#usage)
-- [Memory Specifications](#memory-specifications)
-- [Variation-aware Power And Energy Estimation](#variation-aware-power-and-energy-estimation)
-- [Authors & Acknowledgment](#authors--acknowledgment)
-- [Contact Information](#contact-information)
+- [DRAM Power Model (DRAMPower 5.0)](#dram-power-model-drampower-50)
+  - [Releases](#releases)
+  - [Installation](#installation)
+  - [Project structure](#project-structure)
+  - [Dependencies](#dependencies)
+  - [Usage](#usage)
+  - [Memory Specifications](#memory-specifications)
+  - [Variation-aware Power And Energy Estimation](#variation-aware-power-and-energy-estimation)
+  - [Authors \& Acknowledgment](#authors--acknowledgment)
+  - [Contact Information](#contact-information)
+  - [Disclaimer](#disclaimer)
 
 ## Releases
 The last official release can be found here: https://github.com/ravenrd/DRAMPower/releases/tag/5.0
@@ -30,6 +32,12 @@ make -j4 DRAMPower
 
 Optionally, test cases can be built by toggling the DRAMPOWER_BUILD_TESTS flag with CMake.
 The command line tool can be built by setting the DRAMPOWER_BUILD_CLI flag.
+
+**Attention**: the flags should be like `-D Var=value`, for example: `cmake -D DRAMPOWER_VERBOSE_CMAKE_OUTPUT=ON -D DRAMPOWER_BUILD_TESTS=ON -D DRAMPOWER_BUILD_CLI=ON ../` . 
+
+**Attention**: when `DRAMPOWER_BUILD_TESTS` and `DRAMPOWER_BUILD_CLI` is on, cmake will be slow, wait with patience.
+
+**Attention**: `make DARMPower` will not produce cli binary, even if DRAMPOWER_BUILD_CLI is ON when cmake. Maybe DRAMPOWER_BUILD_TESTS will also not be produced with `make DARMPower` but I haven't tested it. Use `make all` to produce them.
 
 ## Project structure
 The project is structured in a library part and an (optional) Command Line application.
