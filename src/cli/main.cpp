@@ -1,5 +1,6 @@
 #include <DRAMPower/command/Command.h>
-#include <DRAMPower/standards/lpddr5/LPDDR5.h>
+//#include <DRAMPower/standards/lpddr5/LPDDR5.h>
+#include <DRAMPower/standards/ddr4/DDR4.h>
 #include <DRAMPower/util/json.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/fmt.h>
@@ -31,10 +32,18 @@ std::vector<Command> parse_command_list(std::string_view csv_file)
 		// timestamp, command, bank, bank group, rank
 		auto timestamp = row[0].get<timestamp_t>();
 		auto cmdType = row[1].get_sv();
-		auto bank_id = row[2].get<std::size_t>();
-		std::size_t bank_group_id = 0;//row[3].get<std::size_t>();
-		std::size_t rank_id = 0;//row[4].get<std::size_t>();
-		//Attention: even if the cmdType is "END", the last 3 columns(bank_id, bg_id, rank_id) must exist.
+
+		//initialize, not final value:
+		std::size_t bank_id = 0;
+		std::size_t bank_group_id = 0;
+		std::size_t rank_id = 0;
+		
+		if (cmdType != "PREA" && cmdType != "REF" && cmdType != "END") // only set meaningful value when the cmd is not "PREA", "REF", "END"
+		{
+			bank_id = row[2].get<std::size_t>();
+			bank_group_id = 0;//row[3].get<std::size_t>();
+			rank_id = 0;//row[4].get<std::size_t>();
+		}
 
 //		std::cout << "timestamp: "<< timestamp <<"\t" << "cmdType: " << cmdType << "\t" << "bank_id: " << bank_id << "\t" << "bg_id: " << bank_group_id << "\t" << "rank_id: " << rank_id <<std::endl;
 
@@ -139,8 +148,10 @@ int main(int argc, char *argv[])
 	}
 
 	json data = json::parse(f);
-	MemSpecLPDDR5 lpddr5(data["memspec"]);
-	LPDDR5 ddr(lpddr5);
+	//MemSpecLPDDR5 lpddr5(data["memspec"]);
+	//LPDDR5 ddr(lpddr5);
+	MemSpecDDR4 ddr4(data["memspec"]);
+	DDR4 ddr(ddr4);
 
 	size_t count = 0;
 
@@ -160,10 +171,17 @@ int main(int argc, char *argv[])
 			{ 125, CmdType::END_OF_SIMULATION },
 	};
 
-	for (auto &command : testPattern) {
+	//for (auto &command : testPattern) {
+	//	ddr.doCommand(command);
+	//	count += 1;
+	//}
+
+	for (auto &command :commandList)
+	{
 		ddr.doCommand(command);
-		count += 1;
+		count +=1;
 	}
+	
 
 	auto energy = ddr.calcEnergy(commandList.back().timestamp);
 	auto stats = ddr.getStats();
