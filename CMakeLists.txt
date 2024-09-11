@@ -101,7 +101,7 @@ else() # Fetch DRAMUtils from github
     message(STATUS "Fetching DRAMUtils from github")
     FetchContent_Declare(
         DRAMUtils
-        GIT_REPOSITORY https://github.com/tukl-msd/DRAMUtils
+	GIT_REPOSITORY git@github.com:tukl-msd/DRAMUtils.git
         GIT_TAG "v1.0"
     )
 endif()
@@ -113,7 +113,7 @@ set_target_properties(DRAMUtils PROPERTIES FOLDER lib)
 if(DRAMPOWER_BUILD_TESTS)
     FetchContent_Declare(
         googletest
-        GIT_REPOSITORY https://github.com/google/googletest
+        GIT_REPOSITORY git@github.com:google/googletest.git
         GIT_TAG release-1.12.1
     )
 
